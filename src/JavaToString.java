@@ -19,9 +19,9 @@ public class JavaToString {
 	    }
 	    public void start()  {
 	    	code="[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
-	     
+	        System.out.println("Input Path: " + input);
 	        System.out.println("Unique Code: " + code);
-	        System.out.println("Outath: " + output);
+	        System.out.println("Out pathath: " + output);
 	     
 	    }
 	    
