@@ -30,16 +30,21 @@ public class JavaToString {
 				System.out.println("Java file parsing in progress...");
 				for(int i=0; i< files.length;i++)
 				{
-					if(files[i].endsWith(".java")){
+					if(files[i].endsWith(".java"))
+					{
+						FileInputStream in = new FileInputStream(files[i]);
+						 cu = JavaParser.parse(in);
+						 cuArray.add(cu);
 						System.out.println(files[i].toString());
 						//if("Windows".equalsIgnoreCase(os))
 							count++;
-							
+							System.out.println(count);
 						
 						}
 						
-					System.out.println(count);
-					}			
+					//System.out.println(count);
+					}
+				System.out.println(count);
 				}
 	        
 	        
