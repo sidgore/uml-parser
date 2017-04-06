@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+
 
 
 
@@ -19,10 +22,10 @@ public class JavaToString {
 	      
 	         code = "";
 	    }
-	    public void start()  {
+	    public void start() throws Exception  {
 	    	File dir = new File(input);
 	    	int count=0;
-	    	String[] files = dir.list();
+	    	File[] files = dir.listFiles();
 	    
 	    	code="[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
 	        System.out.println("Input Path: " + input);
@@ -30,12 +33,13 @@ public class JavaToString {
 				System.out.println("Java file parsing in progress...");
 				for(int i=0; i< files.length;i++)
 				{
-					if(files[i].endsWith(".java"))
+					if(files[i].getName().endsWith(".java"))
 					{
 						FileInputStream in = new FileInputStream(files[i]);
-						 cu = JavaParser.parse(in);
-						 cuArray.add(cu);
-						System.out.println(files[i].toString());
+						 CompilationUnit cu = JavaParser.parse(in);
+						// cuArray.add(cu);
+						 System.out.println(cu);
+						//System.out.println(files[i].toString());
 						//if("Windows".equalsIgnoreCase(os))
 							count++;
 							System.out.println(count);
