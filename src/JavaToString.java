@@ -77,16 +77,16 @@ public class JavaToString {
 					}
 				//System.out.println(count);
 				}
-	        List<TypeDeclaration> a=cu.getTypes();
-	        ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) a.get(0);
-	        map.put(coi.getName(), coi.isInterface());
-	        /*for (CompilationUnit c : linkedList) {
+	       // List<TypeDeclaration> a=cu.getTypes();
+	        //ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) a.get(0);
+	        //map.put(coi.getName(), coi.isInterface());
+	        for (CompilationUnit c : linkedList) {
 	            List<TypeDeclaration> cl = c.getTypes();
 	            for (Node n : cl) {
 	                ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) n;
-	            //    map.put(coi.getName(), coi.isInterface()); 
+	                map.put(coi.getName(), coi.isInterface()); 
 	              
-	            }*/
+	            }}
 	        for (String key : map.keySet()) {
 	            System.out.println(key + " " + map.get(key));
 	        }
