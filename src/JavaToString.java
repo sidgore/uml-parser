@@ -21,7 +21,7 @@ public class JavaToString {
 	    HashMap<String, Boolean> map;
 
 	    JavaToString(String input, String output) {
-	    	
+	    	 map = new HashMap<String, Boolean>();
 	    
 	        this.input = input;
 	        this.output = input + "/" + output + ".png";
@@ -67,28 +67,33 @@ public class JavaToString {
 						// System.out.println(cu);
 						//System.out.println(files[i].toString());
 						
-							count++;
-							System.out.println(count);
+							//count++;
+							//System.out.println(count);
 						
 						}
 				
 						
 					//System.out.println(count);
 					}
-				System.out.println(count);
+				//System.out.println(count);
 				}
-	        for (CompilationUnit c : linkedList) {
+	        List<TypeDeclaration> a=cu.getTypes();
+	        ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) a.get(0);
+	        map.put(coi.getName(), coi.isInterface());
+	        /*for (CompilationUnit c : linkedList) {
 	            List<TypeDeclaration> cl = c.getTypes();
 	            for (Node n : cl) {
 	                ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) n;
-	                map.put(coi.getName(), coi.isInterface()); 
+	            //    map.put(coi.getName(), coi.isInterface()); 
 	              
-	            }
+	            }*/
+	        for (String key : map.keySet()) {
+	            System.out.println(key + " " + map.get(key));
 	        }
 	        
 	        
-	        System.out.println("Unique Code: " + code);
-	        System.out.println("Out path: " + output);
+	       // System.out.println("Unique Code: " + code);
+	        //System.out.println("Out path: " + output);
 	     
 	    }
 	    
