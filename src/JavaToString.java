@@ -40,7 +40,7 @@ public class JavaToString {
 	    	File dir = new File(input);
 	    	int count=0;
 	    	File[] files = dir.listFiles();
-	    	CompilationUnit cu = null ;
+	    	CompilationUnit complilationUnit = null ;
 	    	FileInputStream in = null;
 	    	code="[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
 	        System.out.println("Input Path: " + input);
@@ -58,7 +58,7 @@ public class JavaToString {
 							e.printStackTrace();
 						}
 						  try {
-							cu = JavaParser.parse(in);
+							complilationUnit = JavaParser.parse(in);
 							
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
@@ -71,8 +71,8 @@ public class JavaToString {
 								e.printStackTrace();
 							}
 						  
-						  linkedList.add(cu);
-						// cuArray.add(cu);
+						  linkedList.add(complilationUnit);
+						
 						// System.out.println(cu);
 						//System.out.println(files[i].toString());
 						
