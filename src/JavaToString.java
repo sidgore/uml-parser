@@ -25,11 +25,11 @@ public class JavaToString {
 	    final String output;
 	    String code;
 	    HashMap<String, Boolean> map;
-	    HashMap<String, String> mapClassConn;
+	    HashMap<String, String> Connect;
 
 	    JavaToString(String input, String output) {
 	    	 map = new HashMap<String, Boolean>();
-	         mapClassConn = new HashMap<String, String>();
+	         Connect = new HashMap<String, String>();
 	        
 	        this.input = input;
 	        this.output = input + "/" + output + ".png";
@@ -42,7 +42,7 @@ public class JavaToString {
 	    	File[] files = dir.listFiles();
 	    	CompilationUnit cu = null ;
 	    	FileInputStream in = null;
-	    	//code="[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
+	    	code="[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
 	        System.out.println("Input Path: " + input);
 	        if(files.length > 0){				
 				System.out.println("Java file parsing in progress...");
@@ -254,18 +254,18 @@ public class JavaToString {
 	                if (getDepen.length() > 0 && map.containsKey(getDepen)) {
 	                    String connection = "-";
 
-	                    if (mapClassConn
+	                    if (Connect
 	                            .containsKey(getDepen + "-" + classShortName)) {
-	                        connection = mapClassConn
+	                        connection = Connect
 	                                .get(getDepen + "-" + classShortName);
 	                        if (getDepenMultiple)
 	                            connection = "*" + connection;
-	                        mapClassConn.put(getDepen + "-" + classShortName,
+	                        Connect.put(getDepen + "-" + classShortName,
 	                                connection);
 	                    } else {
 	                        if (getDepenMultiple)
 	                            connection += "*";
-	                        mapClassConn.put(classShortName + "-" + getDepen,
+	                        Connect.put(classShortName + "-" + getDepen,
 	                                connection);
 	                    }
 	                }
@@ -283,7 +283,7 @@ public class JavaToString {
 	        
 	        
 	
-	        }
+	        }	
 	        
 	   
 	        
