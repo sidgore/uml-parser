@@ -36,7 +36,7 @@ public class JavaToString {
 	      
 	         code = "";
 	    }
-	    public void start()   {
+	    public void execute()   {
 	    	File dir = new File(input);
 	    	int count=0;
 	    	File[] files = dir.listFiles();
@@ -101,7 +101,7 @@ public class JavaToString {
 	        
 	        for (CompilationUnit c : linkedList)
 	        {
-	        	String result = "";
+	        	
 	            String className = "";
 	            String classShortName = "";
 	            String methods = "";
