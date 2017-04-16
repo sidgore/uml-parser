@@ -101,10 +101,11 @@ public class JavaToString {
 	        
 	        for (CompilationUnit c : linkedList)
 	        {
+	        	String operations = "";
 	        	
 	            String className = "";
 	            String classShortName = "";
-	            String methods = "";
+	            
 	            String fields = "";
 	            String additions = ",";
 	            
@@ -136,15 +137,15 @@ public class JavaToString {
 	                if (cd.getDeclarationAsString().startsWith("public")
 	                        && !coii.isInterface()) {
 	                    if (nextParam)
-	                        methods += ";";
-	                    methods += "+ " + cd.getName() + "(";
+	                    	operations += ";";
+	                    operations += "+ " + cd.getName() + "(";
 	                    for (Object gcn : cd.getChildrenNodes()) {
 	                        if (gcn instanceof Parameter) {
 	                            Parameter paramCast = (Parameter) gcn;
 	                            String paramClass = paramCast.getType().toString();
 	                            String paramName = paramCast.getChildrenNodes()
 	                                    .get(0).toString();
-	                            methods += paramName + " : " + paramClass;
+	                            operations =operations + paramName + " : " + paramClass;
 	                            if (map.containsKey(paramClass)
 	                                    && !map.get(classShortName)) {
 	                                additions += "[" + classShortName
@@ -158,7 +159,7 @@ public class JavaToString {
 	                            additions += ",";
 	                        }
 	                    }
-	                    methods += ")";
+	                    operations =operations+ ")";
 	                    nextParam = true;
 	                }
 	            }
@@ -176,8 +177,8 @@ public class JavaToString {
 	                        makeFieldPublic.add(varName.toLowerCase());
 	                    } else {
 	                        if (nextParam)
-	                            methods += ";";
-	                        methods += "+ " + md.getName() + "(";
+	                        	operations =operations + ";";
+	                        operations =operations + "+ " + md.getName() + "(";
 	                        for (Object gcn : md.getChildrenNodes()) {
 	                            if (gcn instanceof Parameter) {
 	                                Parameter paramCast = (Parameter) gcn;
@@ -185,7 +186,7 @@ public class JavaToString {
 	                                        .toString();
 	                                String paramName = paramCast.getChildrenNodes()
 	                                        .get(0).toString();
-	                                methods += paramName + " : " + paramClass;
+	                                operations =operations+ paramName + " : " + paramClass;
 	                                if (map.containsKey(paramClass)
 	                                        && !map.get(classShortName)) {
 	                                    additions += "[" + classShortName
@@ -214,7 +215,7 @@ public class JavaToString {
 	                                }
 	                            }
 	                        }
-	                        methods += ") : " + md.getType();
+	                        operations =operations + ") : " + md.getType();
 	                        nextParam = true;
 	                    }
 	                }
