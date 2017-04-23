@@ -180,12 +180,12 @@ public class JavaToString {
 									String methodBody[] = gcn.toString().split(" ");
 									for (String foo : methodBody) {
 										if (map.containsKey(foo) && !map.get(classShortName)) {
-											additions += "[" + classShortName + "] uses -.->";
+											additions =additions+ "[" + classShortName + "] uses -.->";
 											if (map.get(foo))
-												additions += "[<<interface>>;" + foo + "]";
+												additions =additions+ "[<<interface>>;" + foo + "]";
 											else
-												additions += "[" + foo + "]";
-											additions += ",";
+												additions =additions+ "[" + foo + "]";
+											additions =additions+ ",";
 										}
 									}
 								}
