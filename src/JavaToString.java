@@ -119,7 +119,7 @@ public class JavaToString {
 
 			int nextParam = 0;
 
-			String additions;
+			String plus = null;
 			for (BodyDeclaration b : ((TypeDeclaration) node).getMembers()) {
 				
 				if (b instanceof ConstructorDeclaration) {
@@ -135,13 +135,13 @@ public class JavaToString {
 								String paramName = paramCast.getChildrenNodes().get(0).toString();
 								operations = operations + paramName + " : " + paramClass;
 								if (map.containsKey(paramClass) && !map.get(classShortName)) {
-									additions =additions+ "[" + classShortName + "] uses -.->";
+									plus =plus+ "[" + classShortName + "] uses -.->";
 									if (map.get(paramClass))
-										additions =additions+ "[<<interface>>;" + paramClass + "]";
+										plus =plus+ "[<<interface>>;" + paramClass + "]";
 									else
-										additions =additions+ "[" + paramClass + "]";
+										plus =plus+ "[" + paramClass + "]";
 								}
-								additions = additions+",";
+								plus = plus+",";
 							}
 						}
 						operations = operations + ")";
@@ -169,40 +169,40 @@ public class JavaToString {
 									String paramName = paramCast.getChildrenNodes().get(0).toString();
 									operations = operations + paramName + " : " + paramClass;
 									if (map.containsKey(paramClass) && !map.get(classShortName)) {
-										additions =additions+ "[" + classShortName + "] uses -.->";
+										plus =plus+ "[" + classShortName + "] uses -.->";
 										if (map.get(paramClass))
-											additions =additions+ "[<<interface>>;" + paramClass + "]";
+											plus =plus+ "[<<interface>>;" + paramClass + "]";
 										else
-											additions =additions+ "[" + paramClass + "]";
+											plus =plus+ "[" + paramClass + "]";
 									}
-									additions =additions+ ",";
+									plus =plus+ ",";
 								} else {
 									String methodBody[] = gcn.toString().split(" ");
 									for (String foo : methodBody) {
 										if (map.containsKey(foo) && !map.get(classShortName)) {
-											additions =additions+ "[" + classShortName + "] uses -.->";
+											plus =plus+ "[" + classShortName + "] uses -.->";
 											if (map.get(foo))
-												additions =additions+ "[<<interface>>;" + foo + "]";
+												plus =plus+ "[<<interface>>;" + foo + "]";
 											else
-												additions =additions+ "[" + foo + "]";
-											additions =additions+ ",";
+												plus =plus+ "[" + foo + "]";
+											plus =plus+ ",";
 										}
 									}
 								}
 							}
 							operations = operations + ") : " + md.getType();
-							nextParam = true;
+							nextParam = 1;
 						}
 					}
 				}
 			}
 
 		}
+	
 
-		for (String key : map.keySet()) {
-			System.out.println(key + " " + map.get(key));
-		}
-
+		//for (String key : map.keySet()) {
+		//	System.out.println(key + " " + map.get(key));
+	//	}
 		System.out.println("Unique Code: " + code);
 		// System.out.println("Out path: " + output);
 
