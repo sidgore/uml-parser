@@ -96,10 +96,9 @@ public class JavaToString {
 			String className = "";
 			String classShortName = "";
 
-			String fields = "";
-			String additions = ",";
+			
 
-			ArrayList<String> makeFieldPublic = new ArrayList<String>();
+			ArrayList<String> ConvertToPublic = new ArrayList<String>();
 			List<TypeDeclaration> ltd = c.getTypes();
 			Node node = ltd.get(0); // assuming no nested classes
 
@@ -118,14 +117,15 @@ public class JavaToString {
 			code =code+ className;
 			System.out.println(code);
 
-			// Parsing Methods
-			boolean nextParam = false;
-			for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) {
-				// Get Methods
-				if (bd instanceof ConstructorDeclaration) {
-					ConstructorDeclaration cd = ((ConstructorDeclaration) bd);
+			int nextParam = 0;
+
+			String additions;
+			for (BodyDeclaration b : ((TypeDeclaration) node).getMembers()) {
+				
+				if (b instanceof ConstructorDeclaration) {
+					ConstructorDeclaration cd = ((ConstructorDeclaration) b);
 					if (cd.getDeclarationAsString().startsWith("public") && !coii.isInterface()) {
-						if (nextParam)
+						if (nextParam=0)
 							operations += ";";
 						operations += "+ " + cd.getName() + "(";
 						for (Object gcn : cd.getChildrenNodes()) {
@@ -152,12 +152,12 @@ public class JavaToString {
 			for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) {
 				if (bd instanceof MethodDeclaration) {
 					MethodDeclaration md = ((MethodDeclaration) bd);
-					// Get only public methods
+					
 					if (md.getDeclarationAsString().startsWith("public") && !coii.isInterface()) {
-						// Identify Setters and Getters
+						
 						if (md.getName().startsWith("set") || md.getName().startsWith("get")) {
 							String varName = md.getName().substring(3);
-							makeFieldPublic.add(varName.toLowerCase());
+							ConvertToPublic.add(varName.toLowerCase());
 						} else {
 							if (nextParam)
 								operations = operations + ";";
