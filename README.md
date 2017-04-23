@@ -4,7 +4,8 @@ This is a CMPE 202 Personal Project.
 In this project UML Class Diagrams and Sequence Diagrams are generated from the given test cases in Java.
 The Project comprises of two main parts . JavaToString.java and StringToUML.java.
  
+ Main.java which takes the location of the test cases and the location of the output.
 JavaToString.java takes .java files from the given test cases that are in form of Java files folder and converts them into string format which is accepted by yUML.
  
 
-StringToUML.java takes the given string and generates the UML Class Diagrams accordngly.
+StringToUML.java takes the given string and generates the UML Class Diagrams accordingly.
