@@ -125,7 +125,7 @@ public class JavaToString {
 				if (b instanceof ConstructorDeclaration) {
 					ConstructorDeclaration cd = ((ConstructorDeclaration) b);
 					if (cd.getDeclarationAsString().startsWith("public") && !coii.isInterface()) {
-						if (nextParam=0)
+						if (nextParam==0)
 							operations += ";";
 						operations += "+ " + cd.getName() + "(";
 						for (Object gcn : cd.getChildrenNodes()) {
@@ -135,17 +135,17 @@ public class JavaToString {
 								String paramName = paramCast.getChildrenNodes().get(0).toString();
 								operations = operations + paramName + " : " + paramClass;
 								if (map.containsKey(paramClass) && !map.get(classShortName)) {
-									additions += "[" + classShortName + "] uses -.->";
+									additions =additions+ "[" + classShortName + "] uses -.->";
 									if (map.get(paramClass))
-										additions += "[<<interface>>;" + paramClass + "]";
+										additions =additions+ "[<<interface>>;" + paramClass + "]";
 									else
-										additions += "[" + paramClass + "]";
+										additions =additions+ "[" + paramClass + "]";
 								}
-								additions += ",";
+								additions = additions+",";
 							}
 						}
 						operations = operations + ")";
-						nextParam = true;
+						nextParam = 1;
 					}
 				}
 			}
@@ -159,7 +159,7 @@ public class JavaToString {
 							String varName = md.getName().substring(3);
 							ConvertToPublic.add(varName.toLowerCase());
 						} else {
-							if (nextParam)
+							if (nextParam==1)
 								operations = operations + ";";
 							operations = operations + "+ " + md.getName() + "(";
 							for (Object gcn : md.getChildrenNodes()) {
@@ -169,13 +169,13 @@ public class JavaToString {
 									String paramName = paramCast.getChildrenNodes().get(0).toString();
 									operations = operations + paramName + " : " + paramClass;
 									if (map.containsKey(paramClass) && !map.get(classShortName)) {
-										additions += "[" + classShortName + "] uses -.->";
+										additions =additions+ "[" + classShortName + "] uses -.->";
 										if (map.get(paramClass))
-											additions += "[<<interface>>;" + paramClass + "]";
+											additions =additions+ "[<<interface>>;" + paramClass + "]";
 										else
-											additions += "[" + paramClass + "]";
+											additions =additions+ "[" + paramClass + "]";
 									}
-									additions += ",";
+									additions =additions+ ",";
 								} else {
 									String methodBody[] = gcn.toString().split(" ");
 									for (String foo : methodBody) {
