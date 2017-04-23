@@ -23,6 +23,8 @@ public class SequenceDiagram {
 	LinkedList<CompilationUnit> linkedList = new LinkedList<CompilationUnit>();
 	final String input;
 	final String output;
+	String ClassName;
+	String FunctionName;
 	String code;
 	HashMap<String, Boolean> map;
 	HashMap<String, String> Connect;
@@ -35,7 +37,8 @@ public class SequenceDiagram {
        
 		map = new HashMap<String, Boolean>();
 		Connect = new HashMap<String, String>();
-
+         this.ClassName=ClassName;
+         this.FunctionName=FunctionName;
 		this.input = input;
 		this.output = input + "/" + output + ".png";
 
