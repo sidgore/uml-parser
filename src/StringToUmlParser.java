@@ -10,59 +10,55 @@ import javax.net.ssl.X509TrustManager;
 
 import java.net.*;
 import java.io.*;
+
 public class StringToUmlParser {
-	
-	//static String outpath;
+
+	// static String outpath;
 	public static Boolean createDiagram(String code, String outPath)
-	
-	
+
 	{
-		outPath="/Users/sidgore/Desktop/dia.png";
-			
-			
+		outPath = "/Users/sidgore/Desktop/dia.png";
 
-				// Activate the new trust manager
-			
-				    //SSLContext sc = SSLContext.getInstance("SSL");
-				   // sc.init(null, trustAllCerts, new java.security.SecureRandom());
-				  //  HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-			
+		// Activate the new trust manager
 
-				// And as before now you can use URL and URLConnection
-				//URL url = new URL("https://hostname:port/file.txt");
-				//URLConnection connection = url.openConnection();
-				//InputStream is = connection.getInputStream();
-			
+		// SSLContext sc = SSLContext.getInstance("SSL");
+		// sc.init(null, trustAllCerts, new java.security.SecureRandom());
+		// HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+		// And as before now you can use URL and URLConnection
+		// URL url = new URL("https://hostname:port/file.txt");
+		// URLConnection connection = url.openConnection();
+		// InputStream is = connection.getInputStream();
+
 		URL url;
 		try {
-			///url = new URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
-			
-			url=new URL("https://yuml.me/diagram/plain/class/"+code+".png");
-			
-			//File file = new File("/Users/sidgore/Desktop/dia.png");
+			/// url = new
+			/// URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
+
+			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
+
+			// File file = new File("/Users/sidgore/Desktop/dia.png");
 			File file = new File(outPath);
-			//OutputStream out = new FileOutputStream(file);
-			
+			// OutputStream out = new FileOutputStream(file);
+
 			URLConnection conn = url.openConnection();
-            conn.connect();
-            
-            System.out.println("\ndownload: \n");
-            System.out.println(">> URL: " + url);
-           
-            System.out.println(">> size: " + conn.getContentLength()
-                            + " bytes");
-            
-            
-            InputStream in = conn.getInputStream();
-            OutputStream out = new FileOutputStream(file);
-            int b = 0;
+			conn.connect();
 
-            while (b != -1) {
-                    b = in.read();
+			System.out.println("\ndownload: \n");
+			System.out.println(">> URL: " + url);
 
-                    if (b != -1)
-                            out.write(b);
-            }
+			System.out.println(">> size: " + conn.getContentLength() + " bytes");
+
+			InputStream in = conn.getInputStream();
+			OutputStream out = new FileOutputStream(file);
+			int b = 0;
+
+			while (b != -1) {
+				b = in.read();
+
+				if (b != -1)
+					out.write(b);
+			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,24 +69,9 @@ public class StringToUmlParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				    
-				    
-				 
-
-			
-				 
-			
-			
-	
-				
-		
-		 
-		
-
 
 		return true;
-		
-	}
-	
-}
 
+	}
+
+}
