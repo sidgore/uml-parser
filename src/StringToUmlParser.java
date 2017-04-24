@@ -1,33 +1,26 @@
 
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
-
 
 import java.net.*;
 import java.io.*;
 
 public class StringToUmlParser {
 
-
 	public static Boolean createDiagram(String code, String outPath)
 
 	{
 		outPath = "/Users/sidgore/Desktop/dia.png";
 
-		
-
 		URL url;
 		try {
-			
+
 			// URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
 
-			 File file = new File("/Users/sidgore/Desktop/dia.png");
-			//File file = new File(outPath);
-			
+			File file = new File("/Users/sidgore/Desktop/dia.png");
+			// File file = new File(outPath);
 
 			URLConnection conn = url.openConnection();
 			conn.connect();
