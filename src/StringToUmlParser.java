@@ -19,16 +19,7 @@ public class StringToUmlParser {
 	{
 		outPath = "/Users/sidgore/Desktop/dia.png";
 
-		// Activate the new trust manager
-
-		// SSLContext sc = SSLContext.getInstance("SSL");
-		// sc.init(null, trustAllCerts, new java.security.SecureRandom());
-		// HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-		// And as before now you can use URL and URLConnection
-		// URL url = new URL("https://hostname:port/file.txt");
-		// URLConnection connection = url.openConnection();
-		// InputStream is = connection.getInputStream();
+		
 
 		URL url;
 		try {
