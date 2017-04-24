@@ -32,14 +32,14 @@ public class StringToUmlParser {
 
 		URL url;
 		try {
-			/// url = new
-			/// URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
+			
+			// URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
 
 			// File file = new File("/Users/sidgore/Desktop/dia.png");
 			File file = new File(outPath);
-			// OutputStream out = new FileOutputStream(file);
+			
 
 			URLConnection conn = url.openConnection();
 			conn.connect();
