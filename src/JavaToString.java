@@ -29,64 +29,17 @@ public class JavaToString {
 	}
 
 	public void execute() {
-		File dir = new File(input);
+		UMLHelper helper=new UMLHelper();
+		
 		int count = 0;
-		File[] files = dir.listFiles();
-		CompilationUnit complilationUnit = null;
+
 		FileInputStream in = null;
-		code = "[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order] [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
-		System.out.println("Input Path: " + input);
-		if (files.length > 0) {
-			System.out.println("Java file parsing in progress...");
-			for (int i = 0; i < files.length; i++) {
-
-				if (files[i].getName().endsWith(".java")) {
-					try {
-						in = new FileInputStream(files[i]);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						complilationUnit = JavaParser.parse(in);
-
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						in.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					linkedList.add(complilationUnit);
-
-					// System.out.println(cu);
-					// System.out.println(files[i].toString());
-
-					// count++;
-					// System.out.println(count);
-
-				}
-
-				// System.out.println(count);
-			}
-			// System.out.println(count);
-		}
-		// List<TypeDeclaration> a=cu.getTypes();
-		// ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration)
-		// a.get(0);
-		// map.put(coi.getName(), coi.isInterface());
-		for (CompilationUnit c : linkedList) {
-			List<TypeDeclaration> Nodes = c.getTypes();
-			for (Node n : Nodes) {
-				ClassOrInterfaceDeclaration ClassInterName = (ClassOrInterfaceDeclaration) n;
-				map.put(ClassInterName.getName(), ClassInterName.isInterface());
-
-			}
-		}
+		linkedList=helper.javaParser(input);
+	
+	
+		for (CompilationUnit c : linkedList) 
+		
+		helper.getClassorInterfaceMap(map, c);
 
 		// add class names to code!!
 
