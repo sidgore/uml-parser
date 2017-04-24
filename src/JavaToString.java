@@ -63,7 +63,7 @@ public class JavaToString {
 
 					linkedList.add(complilationUnit);
 
-					// System.out.println(cu);
+					 System.out.println(linkedList);
 					// System.out.println(files[i].toString());
 
 					// count++;
