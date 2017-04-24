@@ -7,7 +7,7 @@ import java.io.*;
 
 public class StringToUmlParser {
 
-	public static Boolean createDiagram(String code, String outPath)
+	public static void createDiagram(String code, String outPath)
 
 	{
 		outPath = "/Users/sidgore/Desktop/dia.png";
@@ -15,6 +15,7 @@ public class StringToUmlParser {
 		URL url;
 		try {
 
+			// url=new
 			// URL("https://yuml.me/diagram/plain/class/[A|-x:int;-y:int(*)]1-0..*[B],[A]-1[C],[A]-*[D]"+".png");
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
@@ -24,12 +25,6 @@ public class StringToUmlParser {
 
 			URLConnection conn = url.openConnection();
 			conn.connect();
-
-			System.out.println("\ndownload: \n");
-			System.out.println(">> URL: " + url);
-
-			System.out.println(">> size: " + conn.getContentLength() + " bytes");
-
 			InputStream in = conn.getInputStream();
 			OutputStream out = new FileOutputStream(file);
 			int b = 0;
@@ -52,8 +47,6 @@ public class StringToUmlParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return true;
 
 	}
 
