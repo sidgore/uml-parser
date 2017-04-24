@@ -1,19 +1,16 @@
 
-import java.net.HttpURLConnection;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+
 
 import java.net.*;
 import java.io.*;
 
 public class StringToUmlParser {
 
-	// static String outpath;
+
 	public static Boolean createDiagram(String code, String outPath)
 
 	{
@@ -28,8 +25,8 @@ public class StringToUmlParser {
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
 
-			// File file = new File("/Users/sidgore/Desktop/dia.png");
-			File file = new File(outPath);
+			 File file = new File("/Users/sidgore/Desktop/dia.png");
+			//File file = new File(outPath);
 			
 
 			URLConnection conn = url.openConnection();
@@ -50,6 +47,8 @@ public class StringToUmlParser {
 				if (b != -1)
 					out.write(b);
 			}
+			in.close();
+			out.close();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
