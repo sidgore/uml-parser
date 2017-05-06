@@ -60,29 +60,6 @@ public class JavaToString {
 	
 	
 
-    
-
    
-
-    private void buildMap(ArrayList<CompilationUnit> cuArray) {
-        for (CompilationUnit cu : cuArray) {
-            List<TypeDeclaration> cl = cu.getTypes();
-            for (Node n : cl) {
-                ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) n;
-                map.put(coi.getName(), coi.isInterface()); // false is class,
-                                                           // true is interface
-            }
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private void printMaps() {
-        System.out.println("Map:");
-        Set<String> keys = Connect.keySet(); // get all keys
-        for (String i : keys) {
-            System.out.println(i + "->" + Connect.get(i));
-        }
-        System.out.println("---");
-    }
 
 }
