@@ -30,11 +30,9 @@ public class JavaToString {
 		//code = code + helper.parsingextended(Connect, map);
 		// code += parseAdditions();
 		code = yumlCodeUniquer(code);
-		// for (String key : map.keySet()) {
-		// System.out.println(key + " " + map.get(key));
-		// }
+	
 		System.out.println("Unique Code: " + code);
-		// System.out.println("Out path: " + output);
+	
 		return code;
 	}
 
