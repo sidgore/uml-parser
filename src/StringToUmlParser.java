@@ -10,7 +10,7 @@ public class StringToUmlParser {
 	public static void createDiagram(String code, String outPath)
 
 	{
-		outPath = "/Users/sidgore/Desktop/dia.png";
+		//outPath = "/Users/sidgore/Desktop/dia.png";
 
 		URL url;
 		try {
@@ -20,8 +20,8 @@ public class StringToUmlParser {
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
 
-			File file = new File("/Users/sidgore/Desktop/dia.png");
-			// File file = new File(outPath);
+			//File file = new File("/Users/sidgore/Desktop/dia.png");
+			File file = new File(outPath);
 
 			URLConnection conn = url.openConnection();
 			conn.connect();

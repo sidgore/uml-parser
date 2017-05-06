@@ -20,8 +20,10 @@ import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 public class UMLHelper {
 	
+	
 	UMLHelper()
 	{
+		
 		//HashMap<String, Boolean> map = ;
 	}
 
