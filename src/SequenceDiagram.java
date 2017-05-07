@@ -21,7 +21,7 @@ import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
 
-import net.sourceforge.plantuml.SourceStringReader;
+//import net.sourceforge.plantuml.SourceStringReader;
 
 public class SequenceDiagram {
 
@@ -134,8 +134,9 @@ public class SequenceDiagram {
     private String generateDiagram(String source) throws IOException {
 
         OutputStream png = new FileOutputStream(outPath);
-        SourceStringReader reader = new SourceStringReader(source);
-        String desc = reader.generateImage(png);
+     //   SourceStringReader reader = new SourceStringReader(source);
+     //   String desc = reader.generateImage(png);
+        String desc="";
         return desc;
 
     }

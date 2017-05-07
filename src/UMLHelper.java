@@ -23,7 +23,7 @@ public class UMLHelper {
 	UMLHelper() {
 	}
 
-	public HashMap<String, Boolean> getClassorInterfaceMap(LinkedList<CompilationUnit> linkedList) {
+	protected HashMap<String, Boolean> getClassorInterfaceMap(LinkedList<CompilationUnit> linkedList) {
 		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
 		for (CompilationUnit c : linkedList) {
 
@@ -37,7 +37,7 @@ public class UMLHelper {
 		return map;
 	}
 
-	String convertToString(LinkedList<CompilationUnit> linkedList, HashMap<String, String> Connect,
+	protected String convertToString(LinkedList<CompilationUnit> linkedList, HashMap<String, String> Connect,
 			HashMap<String, Boolean> map) {
 		String result = "";
 		for (CompilationUnit c : linkedList) {
@@ -251,6 +251,11 @@ public class UMLHelper {
 		}
 		return result;
 	}
+	
+	
+	
+	
+	
 
 	public LinkedList<CompilationUnit> javaParser(String input) {
 		LinkedList<CompilationUnit> linkedList = new LinkedList<CompilationUnit>();
@@ -260,12 +265,10 @@ public class UMLHelper {
 		File[] files = dir.listFiles();
 		CompilationUnit complilationUnit = null;
 		FileInputStream in = null;
-		// code =
-		// "[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order]
-		// [Order]++-0..*>[LineItem] [Order]-[note:Aggregate root{bg:wheat}]";
+		
 		System.out.println("Input Path: " + input);
 		if (files.length > 0) {
-			System.out.println("Java file parsing in progress...");
+		
 			for (int i = 0; i < files.length; i++) {
 
 				if (files[i].getName().endsWith(".java")) {
