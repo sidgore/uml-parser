@@ -4,7 +4,7 @@ public class Main {
 	@SuppressWarnings("static-access")
 	public static void main(String args[]) throws Exception {
 		// String test="";
-		String input = "/Users/sidgore/Downloads/downloads/paul-202-github/umlparser/uml-sequence-test";
+		String input = "/Users/sidgore/Desktop/workspace/uml-parser/Test-Cases/uml-sequence-test";
 		//String output="seqdiag";
 		String FunctionName="main";
 		String ClassName="Main";
