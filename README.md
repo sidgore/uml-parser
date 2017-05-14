@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/sidgore/uml-parser.png?label=ready&title=Ready)](https://waffle.io/sidgore/uml-parser)
-# uml-parser
+# JAVA-UML Parser
  
  Java UML Parser-
  A UML parser which converts the given JAVA Source code into Class and Sequence Diagrams.
