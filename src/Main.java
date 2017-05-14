@@ -22,7 +22,6 @@ public class Main {
 			String output = args[1] + "/" + args[4] + ".png";
 			SequenceDiagram seq = new SequenceDiagram(args[1], args[2], args[3]);
 			String code = seq.execute(args[1]);
-			System.out.println(code);
 
 			SequenceHelper seqhelp = new SequenceHelper();
 			seqhelp.generateSequenceDiagram(code, output);
