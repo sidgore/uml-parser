@@ -10,7 +10,7 @@ public class StringToUmlParser {
 	public static void createDiagram(String code, String outPath)
 
 	{
-		//outPath = "/Users/sidgore/Desktop/dia.png";
+		// outPath = "/Users/sidgore/Desktop/dia.png";
 
 		URL url;
 		try {
@@ -20,7 +20,7 @@ public class StringToUmlParser {
 
 			url = new URL("https://yuml.me/diagram/plain/class/" + code + ".png");
 
-			//File file = new File("/Users/sidgore/Desktop/dia.png");
+			// File file = new File("/Users/sidgore/Desktop/dia.png");
 			File file = new File(outPath);
 
 			URLConnection conn = url.openConnection();
@@ -32,19 +32,17 @@ public class StringToUmlParser {
 			while (b != -1) {
 				b = in.read();
 
-				if (b != -1)
+				if (b != -1) {
 					out.write(b);
+				}
 			}
 			in.close();
 			out.close();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

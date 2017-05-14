@@ -45,116 +45,133 @@ public class UMLHelper {
 			String className = "";
 			String classShortName = "";
 			String methods = "";
-			String fields = "";
+			String attributes = "";
 			String additions = ",";
 
 			ArrayList<String> makeFieldPublic = new ArrayList<String>();
 			List<TypeDeclaration> ltd = c.getTypes();
-			Node node = ltd.get(0); // assuming no nested classes
+			Node node = ltd.get(0);
 
-			// Get className
 			ClassOrInterfaceDeclaration coi = (ClassOrInterfaceDeclaration) node;
 			if (coi.isInterface()) {
 				className = "[" + "<<interface>>;";
 			} else {
 				className = "[";
 			}
-			className += coi.getName();
+			className = className + coi.getName();
 			classShortName = coi.getName();
 
-			// Parsing Methods
-			boolean nextParam = false;
+			boolean nAttrib = false;
 			for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) {
-				// Get Methods
+
 				if (bd instanceof ConstructorDeclaration) {
 					ConstructorDeclaration cd = ((ConstructorDeclaration) bd);
 					if (cd.getDeclarationAsString().startsWith("public") && !coi.isInterface()) {
-						if (nextParam)
-							methods += ";";
-						methods += "+ " + cd.getName() + "(";
+						if (nAttrib) {
+							methods = methods + ";";
+						}
+
+						methods = methods + "+ " + cd.getName() + "(";
 						for (Object gcn : cd.getChildrenNodes()) {
 							if (gcn instanceof Parameter) {
 								Parameter paramCast = (Parameter) gcn;
 								String paramClass = paramCast.getType().toString();
 								String paramName = paramCast.getChildrenNodes().get(0).toString();
-								methods += paramName + " : " + paramClass;
+								methods = methods + paramName + " : " + paramClass;
 								if (map.containsKey(paramClass) && !map.get(classShortName)) {
-									additions += "[" + classShortName + "] uses -.->";
+									additions = additions + "[" + classShortName + "] uses -.->";
 									if (map.get(paramClass))
-										additions += "[<<interface>>;" + paramClass + "]";
+										additions = additions + "[<<interface>>;" + paramClass + "]";
 									else
-										additions += "[" + paramClass + "]";
+										additions = additions + "[" + paramClass + "]";
 								}
-								additions += ",";
+								additions = additions + ",";
 							}
 						}
-						methods += ")";
-						nextParam = true;
+						methods = methods + ")";
+						nAttrib = true;
 					}
 				}
 			}
-			for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) {
-				if (bd instanceof MethodDeclaration) {
-					MethodDeclaration md = ((MethodDeclaration) bd);
-					// Get only public methods
+			for (BodyDeclaration b : ((TypeDeclaration) node).getMembers()) {
+				if (b instanceof MethodDeclaration) {
+					MethodDeclaration md = ((MethodDeclaration) b);
+
 					if (md.getDeclarationAsString().startsWith("public") && !coi.isInterface()) {
-						// Identify Setters and Getters
+
 						if (md.getName().startsWith("set") || md.getName().startsWith("get")) {
 							String varName = md.getName().substring(3);
 							makeFieldPublic.add(varName.toLowerCase());
 						} else {
-							if (nextParam)
-								methods += ";";
-							methods += "+ " + md.getName() + "(";
-							for (Object gcn : md.getChildrenNodes()) {
-								if (gcn instanceof Parameter) {
-									Parameter paramCast = (Parameter) gcn;
-									String paramClass = paramCast.getType().toString();
-									String paramName = paramCast.getChildrenNodes().get(0).toString();
-									methods += paramName + " : " + paramClass;
-									if (map.containsKey(paramClass) && !map.get(classShortName)) {
-										additions += "[" + classShortName + "] uses -.->";
-										if (map.get(paramClass))
-											additions += "[<<interface>>;" + paramClass + "]";
+							if (nAttrib) {
+								methods = methods + ";";
+							}
+							methods = methods + "+ " + md.getName() + "(";
+							for (Object cnode : md.getChildrenNodes()) {
+								if (cnode instanceof Parameter) {
+									Parameter paramCast = (Parameter) cnode;
+									String ClassName = paramCast.getType().toString();
+									String attributeName = paramCast.getChildrenNodes().get(0).toString();
+									methods = methods + attributeName + " : " + ClassName;
+									if (map.containsKey(ClassName) && !map.get(classShortName)) {
+										additions = additions + "[" + classShortName + "] uses -.->";
+										if (map.get(ClassName))
+											additions = additions + "[<<interface>>;" + ClassName + "]";
 										else
-											additions += "[" + paramClass + "]";
+											additions = additions + "[" + ClassName + "]";
 									}
-									additions += ",";
+									additions = additions + ",";
 								} else {
-									String methodBody[] = gcn.toString().split(" ");
+									String methodBody[] = cnode.toString().split(" ");
 									for (String foo : methodBody) {
 										if (map.containsKey(foo) && !map.get(classShortName)) {
-											additions += "[" + classShortName + "] uses -.->";
+											additions = additions + "[" + classShortName + "] uses -.->";
 											if (map.get(foo))
-												additions += "[<<interface>>;" + foo + "]";
+												additions = additions + "[<<interface>>;" + foo + "]";
 											else
-												additions += "[" + foo + "]";
-											additions += ",";
+												additions = additions + "[" + foo + "]";
+											additions = additions + ",";
 										}
 									}
 								}
 							}
-							methods += ") : " + md.getType();
-							nextParam = true;
+							methods = methods + ") : " + md.getType();
+							nAttrib = true;
 						}
 					}
 				}
 			}
-			// Parsing Fields
-			boolean nextField = false;
+			boolean nField = false;
 			for (BodyDeclaration bd : ((TypeDeclaration) node).getMembers()) {
 				if (bd instanceof FieldDeclaration) {
 					FieldDeclaration fd = ((FieldDeclaration) bd);
-					String fieldScope = aToSymScope(
-							bd.toStringWithoutComments().substring(0, bd.toStringWithoutComments().indexOf(" ")));
-					String fieldClass = changeBrackets(fd.getType().toString());
+					String scope;
+
+					String identifier = bd.toStringWithoutComments().substring(0,
+							bd.toStringWithoutComments().indexOf(" "));
+
+					if (identifier.equals("private")) {
+						scope = "-";
+					} else if (identifier.equals("public")) {
+						scope = "+";
+					} else {
+						scope = "";
+					}
+
+					String fieldClass = fd.getType().toString();
+
+					fieldClass = fieldClass.replace("[", "(");
+					fieldClass = fieldClass.replace("]", ")");
+					fieldClass = fieldClass.replace("<", "(");
+					fieldClass = fieldClass.replace(">", ")");
+
 					String fieldName = fd.getChildrenNodes().get(1).toString();
 					if (fieldName.contains("="))
 						fieldName = fd.getChildrenNodes().get(1).toString().substring(0,
 								fd.getChildrenNodes().get(1).toString().indexOf("=") - 1);
-					// Change scope of getter, setters
-					if (fieldScope.equals("-") && makeFieldPublic.contains(fieldName.toLowerCase())) {
-						fieldScope = "+";
+
+					if (scope.equals("-") && makeFieldPublic.contains(fieldName.toLowerCase())) {
+						scope = "+";
 					}
 					String getDepen = "";
 					boolean getDepenMultiple = false;
@@ -174,88 +191,81 @@ public class UMLHelper {
 							Connect.put(getDepen + "-" + classShortName, connection);
 						} else {
 							if (getDepenMultiple)
-								connection += "*";
+								connection = connection + "*";
 							Connect.put(classShortName + "-" + getDepen, connection);
 						}
 					}
-					if (fieldScope == "+" || fieldScope == "-") {
-						if (nextField)
-							fields += "; ";
-						fields += fieldScope + " " + fieldName + " : " + fieldClass;
-						nextField = true;
+					if (scope == "+" || scope == "-") {
+						if (nField)
+							attributes = attributes + "; ";
+						attributes = attributes + scope + " " + fieldName + " : " + fieldClass;
+						nField = true;
 					}
 				}
 
 			}
-			// Check extends, implements
+
 			if (coi.getExtends() != null) {
-				additions += "[" + classShortName + "] " + "-^ " + coi.getExtends();
-				additions += ",";
+				additions = additions + "[" + classShortName + "] " + "-^ " + coi.getExtends() + ",";
+
 			}
 			if (coi.getImplements() != null) {
 				List<ClassOrInterfaceType> interfaceList = (List<ClassOrInterfaceType>) coi.getImplements();
 				for (ClassOrInterfaceType intface : interfaceList) {
-					additions += "[" + classShortName + "] " + "-.-^ " + "[" + "<<interface>>;" + intface + "]";
-					additions += ",";
+					additions = additions + "[" + classShortName + "] " + "-.-^ " + "[" + "<<interface>>;" + intface
+							+ "]" + ",";
+
 				}
 			}
-			// Combine className, methods and fields
-			result += className;
-			if (!fields.isEmpty()) {
-				result += "|" + changeBrackets(fields);
+
+			result = result + className;
+			if (!attributes.isEmpty()) {
+
+				result = result + "|";
+
+				attributes = attributes.replace("[", "(");
+				attributes = attributes.replace("]", ")");
+				attributes = attributes.replace("<", "(");
+				attributes = attributes.replace(">", ")");
+				result = result + attributes;
 			}
 			if (!methods.isEmpty()) {
-				result += "|" + changeBrackets(methods);
+
+				result = result + "|";
+
+				methods = methods.replace("[", "(");
+				methods = methods.replace("]", ")");
+				methods = methods.replace("<", "(");
+				methods = methods.replace(">", ")");
+
+				result = result + methods;
+
 			}
-			result += "]";
-			result += additions;
+			result = result + "]" + additions;
+
 		}
 		return result;
 
-	}
-
-	private String changeBrackets(String foo) {
-		foo = foo.replace("[", "(");
-		foo = foo.replace("]", ")");
-		foo = foo.replace("<", "(");
-		foo = foo.replace(">", ")");
-		return foo;
-	}
-
-	private String aToSymScope(String stringScope) {
-		switch (stringScope) {
-		case "private":
-			return "-";
-		case "public":
-			return "+";
-		default:
-			return "";
-		}
 	}
 
 	public String parsingextended(HashMap<String, String> Connect, HashMap<String, Boolean> map) {
 		String result = "";
-		Set<String> keys = Connect.keySet(); // get all keys
+		Set<String> keys = Connect.keySet();
 		for (String i : keys) {
 			String[] classes = i.split("-");
 			if (map.get(classes[0]))
-				result += "[<<interface>>;" + classes[0] + "]";
+				result = result + "[<<interface>>;" + classes[0] + "]";
 			else
-				result += "[" + classes[0] + "]";
-			result += Connect.get(i); // Add connection
+				result = result + "[" + classes[0] + "]";
+			result = result + Connect.get(i);
 			if (map.get(classes[1]))
-				result += "[<<interface>>;" + classes[1] + "]";
+				result = result + "[<<interface>>;" + classes[1] + "]";
 			else
-				result += "[" + classes[1] + "]";
-			result += ",";
+				result = result + "[" + classes[1] + "]";
+			result = result + ",";
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
 
 	public LinkedList<CompilationUnit> javaParser(String input) {
 		LinkedList<CompilationUnit> linkedList = new LinkedList<CompilationUnit>();
@@ -265,10 +275,10 @@ public class UMLHelper {
 		File[] files = dir.listFiles();
 		CompilationUnit complilationUnit = null;
 		FileInputStream in = null;
-		
+
 		System.out.println("Input Path: " + input);
 		if (files.length > 0) {
-		
+
 			for (int i = 0; i < files.length; i++) {
 
 				if (files[i].getName().endsWith(".java")) {
