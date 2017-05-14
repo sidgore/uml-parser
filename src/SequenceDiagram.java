@@ -85,8 +85,8 @@ public class SequenceDiagram {
 			final String Func2 = mce.getName();
 			final String Class2 = MethodMap.get(Func2);
 			if (MethodMap.containsKey(Func2)) {
-				code = code + Class1 + " -> " + Class2 + " : " + mce.toStringWithoutComments() + "\n"
-						+ "activate " + Class2 + "\n";
+				code = code + Class1 + " -> " + Class2 + " : " + mce.toStringWithoutComments() + "\n" + "activate "
+						+ Class2 + "\n";
 
 				convert(Func2);
 				code = code + Class2 + " -->> " + Class1 + "\n" + "deactivate " + Class2 + "\n";
