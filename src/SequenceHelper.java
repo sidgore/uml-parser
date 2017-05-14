@@ -56,6 +56,7 @@ public class SequenceHelper {
 		return linkedList;
 	}
 
+	@SuppressWarnings("deprecation")
 	protected String generateSequenceDiagram(String source,String output) throws IOException {
 
         OutputStream png = new FileOutputStream(output);
